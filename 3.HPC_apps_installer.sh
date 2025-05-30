@@ -184,3 +184,25 @@ else
     echo "HPL not found. Installing..."
     spack install -j40 hpl%$COMPILER
 fi
+# --------- Intel-Oneapi-Compilers ----------
+sleep 1
+echo " "
+echo -e "${BLUE} Checking for Intel-Oneapi-Compilers...${NC}" | tee "$LOGFILE"
+if spack find intel-oneapi-compilers | grep -q intel-oneapi-compilers; then
+    echo -e "${GREEN}[✓] intel-oneapi-compilers is already installed ${NC}" | tee -a "$LOGFILE"
+else
+    echo "intel-oneapi-compilers not found Installing..."
+    spack install -j40 intel-oneapi-compilerss%$COMPILER
+fi
+
+# --------- Intel-Oneapi-mpi ----------
+sleep 1
+echo " "
+echo -e "${BLUE} Checking for Intel-Oneapi-Mpi...${NC}" | tee "$LOGFILE"
+if spack find intel-oneapi-mpi | grep -q intel-oneapi-mpi; then
+    echo -e "${GREEN}[✓] intel-oneapi-mpi is already installed ${NC}" | tee -a "$LOGFILE"
+else
+    echo "intel-oneapi-mpi not found Installing..."
+    spack install -j40 intel-oneapi-mpi%$COMPILER
+fi
+
