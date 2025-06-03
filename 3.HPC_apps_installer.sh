@@ -206,3 +206,19 @@ else
     spack install -j40 intel-oneapi-mpi%$COMPILER
 fi
 
+# --------- VMD ----------
+sleep 1
+echo " "
+echo -e "${BLUE} Checking for VMD...${NC}" | tee "$LOGFILE"
+if spack find vmd | grep -q vmd; then
+    echo -e "${GREEN}[✓] VMD is already installed ${NC}" | tee -a "$LOGFILE"
+else
+    echo "VMD not found Installing..."
+    makdir VMD
+    cd VMD
+    wget https://www.ks.uiuc.edu/Research/vmd/vmd-1.9.3/files/final/vmd-1.9.3.bin.LINUXAMD64-CUDA8-OptiX4-OSPRay111p1.opengl.tar.gz
+    spack install -j40 vmd%$COMPILER
+    cd -
+fi
+
+
