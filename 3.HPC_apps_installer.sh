@@ -192,7 +192,7 @@ if spack find intel-oneapi-compilers | grep -q intel-oneapi-compilers; then
     echo -e "${GREEN}[✓] intel-oneapi-compilers is already installed ${NC}" | tee -a "$LOGFILE"
 else
     echo "intel-oneapi-compilers not found Installing..."
-    spack install -j40 intel-oneapi-compilerss%$COMPILER
+    spack install -j40 intel-oneapi-compilers
 fi
 
 # --------- Intel-Oneapi-mpi ----------
@@ -203,7 +203,7 @@ if spack find intel-oneapi-mpi | grep -q intel-oneapi-mpi; then
     echo -e "${GREEN}[✓] intel-oneapi-mpi is already installed ${NC}" | tee -a "$LOGFILE"
 else
     echo "intel-oneapi-mpi not found Installing..."
-    spack install -j40 intel-oneapi-mpi%$COMPILER
+    spack install -j40 intel-oneapi-mpi
 fi
 
 # --------- VMD ----------
