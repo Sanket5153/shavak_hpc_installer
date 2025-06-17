@@ -32,7 +32,7 @@ required_packages=(
     make cmake autoconf automake libtool m4
     git wget curl rsync
     tar gzip bzip2 xz unzip zip
-    python3 pip
+    python3 pip libcerf
     patch perl pkg-config file sudo
 )
 
