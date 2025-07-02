@@ -33,7 +33,7 @@ required_packages=(
     git wget curl rsync
     tar gzip bzip2 xz unzip zip
     python3 pip libcerf
-    patch perl pkg-config file sudo
+    patch perl perl-core pkg-config file sudo
 )
 
 # Arrays to track found and not found
