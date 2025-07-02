@@ -214,10 +214,10 @@ if spack find vmd | grep -q vmd; then
     echo -e "${GREEN}[✓] VMD is already installed ${NC}" | tee -a "$LOGFILE"
 else
     echo "VMD not found Installing..."
-    makdir VMD
+    mkdir VMD
     cd VMD
     wget https://www.ks.uiuc.edu/Research/vmd/vmd-1.9.3/files/final/vmd-1.9.3.bin.LINUXAMD64-CUDA8-OptiX4-OSPRay111p1.opengl.tar.gz
-    spack install -j40 vmd%$COMPILER
+    spack install -j40 vmd
     cd -
 fi
 
