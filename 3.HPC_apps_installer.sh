@@ -60,7 +60,7 @@ if spack find namd | grep -q namd; then
     echo -e "${GREEN}[✓] namd is already installed ${NC}" | tee -a "$LOGFILE"
 else
     echo "Namd not found Installing..."
-    makdir namd
+    mkdir namd
     cd namd
     wget https://www.ks.uiuc.edu/Research/namd/2.14/download/946183/NAMD_2.14_Source.tar.gz
     spack install -j40 namd%$COMPILER
