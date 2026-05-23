@@ -28,7 +28,7 @@ else
     mkdir -p /home/apps/
     cd /home/apps/
     git clone -c feature.manyFiles=true --depth=2 --branch releases/v1.1 https://github.com/spack/spack.git
-    chown -R admin:admin /home/apps/
+    sudo chown -R admin:admin /home/apps/
     source "$SPACK_DIR/share/spack/setup-env.sh"
     echo -e "${RED} install spack using below command $SPACK_DIR${NC}"
     echo -e "${RED} git clone -c feature.manyFiles=true --depth=2 --branch releases/v1.1 https://github.com/spack/spack.git $SPACK_DIR${NC}"
