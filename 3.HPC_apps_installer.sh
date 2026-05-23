@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ---------- Configuration ----------
-SPACK_DIR="/home/admin/spack/"
+SPACK_DIR="/home/apps/spack/"
 COMPILER="gcc"
 LOGFILE="logs/spack_hpc_install.log"
 
@@ -25,6 +25,7 @@ if [ -d "$SPACK_DIR" ]; then
     source "$SPACK_DIR/share/spack/setup-env.sh"
 else
     echo -e "${RED}Spack directory not found at $SPACK_DIR${NC}"
+    echo -e "${RED} install spack using " git clone -c feature.manyFiles=true --depth=2 --branch releases/v1.1 https://github.com/spack/spack.git"$SPACK_DIR${NC}"
     exit 1
 fi
 
