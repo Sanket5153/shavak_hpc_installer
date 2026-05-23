@@ -41,7 +41,7 @@ echo -e "${BLUE}Checking and installing HPC apps using Spack...${NC}" | tee "$LO
 # --------- OpenMPI + slurm ----------
 echo " "
 echo -e "${BLUE} Checking for OpenMPI...${NC}" | tee "$LOGFILE"
-if spack find openmpi+slurm | grep -q openmpi; then
+if spack find openmpi schedulers=slurm | grep -q openmpi; then
     echo -e "${GREEN}[✓] OpenMPI+SLURM is already installed ${NC}" | tee -a "$LOGFILE"
 else
     echo "OpenMPI+Surm not found Installing..."
