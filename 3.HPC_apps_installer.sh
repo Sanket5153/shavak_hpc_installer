@@ -31,7 +31,17 @@ fi
 
 echo -e "${BLUE}Checking and installing HPC apps using Spack...${NC}" | tee "$LOGFILE"
 
+# --------- OpenMPI + slurm ----------
+echo " "
+echo -e "${BLUE} Checking for OpenMPI...${NC}" | tee "$LOGFILE"
+if spack find openmpi+slurm | grep -q openmpi; then
+    echo -e "${GREEN}[✓] OpenMPI+SLURM is already installed ${NC}" | tee -a "$LOGFILE"
+else
+    echo "OpenMPI+Surm not found Installing..."
+    spack install -j40 openmpi schedulers=slurm fabrics=auto %$compiler
+fi
 # --------- GROMACS ----------
+sleep 2
 echo " "
 echo -e "${BLUE} Checking for GROMACS...${NC}" | tee "$LOGFILE"
 if spack find gromacs | grep -q gromacs; then
@@ -42,7 +52,7 @@ else
 fi
 
 # --------- LAMMPS ----------
-sleep 1
+sleep 2
 echo " "
 echo -e "${BLUE} Checking for lammps...${NC}" | tee "$LOGFILE"
 if spack find lammps | grep -q lammps; then
@@ -53,7 +63,7 @@ else
 fi
 
 # --------- NAMD ----------
-sleep 1
+sleep 2
 echo " "
 echo -e "${BLUE} Checking for namd...${NC}" | tee "$LOGFILE"
 if spack find namd | grep -q namd; then
@@ -69,7 +79,7 @@ fi
 
 
 # --------- OPENFOAM ----------
-sleep 1
+sleep 2
 echo " "
 echo -e "${BLUE} Checking for openfoam...${NC}" | tee "$LOGFILE"
 if spack find openfoam | grep -q openfoam; then
@@ -81,7 +91,7 @@ fi
 
 # --------- WRF ----------
 echo " "
-sleep 1
+sleep 2
 echo -e "${BLUE} Checking for WRF...${NC}" | tee "$LOGFILE"
 if spack find wrf | grep -q wrf; then
     echo -e "${GREEN}[✓] wrf is already installed ${NC}" | tee -a "$LOGFILE"
@@ -94,7 +104,7 @@ fi
 
 # --------- nwchem----------
 echo " "
-sleep 1
+sleep 2
 echo -e "${BLUE} Checking for nwchem...${NC}" | tee "$LOGFILE"
 if spack find nwchem | grep -q nwchem; then
     echo -e "${GREEN}[✓] nwchem is already installed ${NC}" | tee -a "$LOGFILE"
@@ -107,7 +117,7 @@ fi
 
 # --------- abinit ----------
 echo " "
-sleep 1
+sleep 2
 echo -e "${BLUE} Checking for abinit...${NC}" | tee "$LOGFILE"
 if spack find abinit | grep -q abinit; then
     echo -e "${GREEN}[✓] abinit is already installed ${NC}" | tee -a "$LOGFILE"
@@ -120,7 +130,7 @@ fi
 
 # --------- cp2k ----------
 echo " "
-sleep 1
+sleep 2
 echo -e "${BLUE} Checking for cp2k...${NC}" | tee "$LOGFILE"
 if spack find cp2k | grep -q cp2k; then
     echo -e "${GREEN}[✓] cp2k is already installed ${NC}" | tee -a "$LOGFILE"
@@ -134,7 +144,7 @@ fi
 # --------- hmmer ----------
 
 echo " "
-sleep 1
+sleep 2
 echo -e "${BLUE} Checking for hmmer...${NC}" | tee "$LOGFILE"
 if spack find hmmer | grep -q hmmer; then
     echo -e "${GREEN}[✓] hmmer is already installed ${NC}" | tee -a "$LOGFILE"
@@ -148,7 +158,7 @@ fi
 # --------- mummer ----------
 
 echo " "
-sleep 1
+sleep 2
 echo -e "${BLUE} Checking for mummer...${NC}" | tee "$LOGFILE"
 if spack find mummer | grep -q mummer; then
     echo -e "${GREEN}[✓] mummer is already installed ${NC}" | tee -a "$LOGFILE"
@@ -162,7 +172,7 @@ fi
 # --------- Quantum-espresso ----------
 
 echo " "
-sleep 1
+sleep 2
 echo -e "${BLUE} Checking for Quantum-espresso...${NC}" | tee "$LOGFILE"
 if spack find quantum-espresso | grep -q quantum-espresso; then
     echo -e "${GREEN}[✓] Quantum-espresso is already installed ${NC}" | tee -a "$LOGFILE"
@@ -171,12 +181,10 @@ else
     spack install -j40 quantum-espresso%$COMPILER
 fi
 
-
-
 # --------- HPL ----------
 
 echo " "
-sleep 1
+sleep 2
 echo -e "${BLUE} Checking for HPL...${NC}" | tee "$LOGFILE"
 if spack find hpl | grep -q hpl; then
     echo -e "${GREEN}[✓] hpl is already installed ${NC}" | tee -a "$LOGFILE"
@@ -185,7 +193,7 @@ else
     spack install -j40 hpl%$COMPILER
 fi
 # --------- Intel-Oneapi-Compilers ----------
-sleep 1
+sleep 2
 echo " "
 echo -e "${BLUE} Checking for Intel-Oneapi-Compilers...${NC}" | tee "$LOGFILE"
 if spack find intel-oneapi-compilers | grep -q intel-oneapi-compilers; then
@@ -196,7 +204,7 @@ else
 fi
 
 # --------- Intel-Oneapi-mpi ----------
-sleep 1
+sleep 2
 echo " "
 echo -e "${BLUE} Checking for Intel-Oneapi-Mpi...${NC}" | tee "$LOGFILE"
 if spack find intel-oneapi-mpi | grep -q intel-oneapi-mpi; then
@@ -207,7 +215,7 @@ else
 fi
 
 # --------- VMD ----------
-sleep 1
+sleep 2
 echo " "
 echo -e "${BLUE} Checking for VMD...${NC}" | tee "$LOGFILE"
 if spack find vmd | grep -q vmd; then
@@ -219,6 +227,17 @@ else
     wget https://www.ks.uiuc.edu/Research/vmd/vmd-1.9.3/files/final/vmd-1.9.3.bin.LINUXAMD64-CUDA8-OptiX4-OSPRay111p1.opengl.tar.gz
     spack install -j40 vmd
     cd -
+fi
+
+# --------- Ovito ----------
+sleep 2
+echo " "
+echo -e "${BLUE} Checking for Ovito...${NC}" | tee "$LOGFILE"
+if spack find ovito | grep -q ovito; then
+    echo -e "${GREEN}[✓] Ovito is already installed ${NC}" | tee -a "$LOGFILE"
+else
+    echo "Ovito not found Installing..."
+    spack install -j40 ovito%$compiler
 fi
 
 
