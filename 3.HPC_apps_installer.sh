@@ -93,7 +93,7 @@ if spack find openfoam | grep -q openfoam; then
     echo -e "${GREEN}[✓] openfoam is already installed ${NC}" | tee -a "$LOGFILE"
 else
     echo "OpenFOAM not found Installing..."
-    spack install -j40 openfoam%$COMPILER+vtk+paraview
+    spack install -j40 openfoam ^paraview+qt %$COMPILER
 fi
 
 # --------- WRF ----------
@@ -244,7 +244,7 @@ if spack find ovito | grep -q ovito; then
     echo -e "${GREEN}[✓] Ovito is already installed ${NC}" | tee -a "$LOGFILE"
 else
     echo "Ovito not found Installing..."
-    spack install -j40 ovito%$compiler
+    spack install -j40 ovito
 fi
 
 
