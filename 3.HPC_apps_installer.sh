@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # ---------- Configuration ----------
-SPACK_DIR="/home/apps/spack/"
+BASE_DIR="/home/apps"
+SPACK_DIR="$BASE_DIR/spack"
 COMPILER="gcc"
 LOGFILE="logs/spack_hpc_install.log"
 
@@ -20,21 +21,55 @@ else
     echo -e "${BOLD}=== HPC Application Installer ===${NC}"
 fi
 
-# ---------- Load Spack ----------
-if [ -d "$SPACK_DIR" ]; then
-    source "$SPACK_DIR/share/spack/setup-env.sh"
+# ---------- Create /home/apps if not exists ----------
+if [ ! -d "$BASE_DIR" ]; then
+    echo -e "${BLUE}Creating $BASE_DIR directory...${NC}"
+    sudo mkdir -p "$BASE_DIR"
+
+    # Change ownership to current user
+    sudo chown -R $USER:$USER "$BASE_DIR"
+
+    echo -e "${GREEN}$BASE_DIR created successfully.${NC}"
 else
-    echo -e "${RED}Spack directory not found at $SPACK_DIR${NC}"
-    mkdir -p /home/apps/
-    cd /home/apps/
-    git clone -c feature.manyFiles=true --depth=2 --branch releases/v1.1 https://github.com/spack/spack.git
-    sudo chown -R admin:admin /home/apps/
-    source "$SPACK_DIR/share/spack/setup-env.sh"
-    echo -e "${RED} install spack using below command $SPACK_DIR${NC}"
-    echo -e "${RED} git clone -c feature.manyFiles=true --depth=2 --branch releases/v1.1 https://github.com/spack/spack.git $SPACK_DIR${NC}"
-    return 1
+    echo -e "${GREEN}$BASE_DIR already exists.${NC}"
 fi
 
+# ---------- Check Spack ----------
+if [ -d "$SPACK_DIR" ]; then
+    echo -e "${GREEN}Spack already installed at $SPACK_DIR${NC}"
+
+    # Source Spack
+    source "$SPACK_DIR/share/spack/setup-env.sh"
+
+    echo -e "${GREEN}Spack environment loaded successfully.${NC}"
+
+else
+    echo -e "${BLUE}Spack not found. Installing Spack...${NC}"
+
+    cd "$BASE_DIR" || exit 1
+
+    git clone -c feature.manyFiles=true \
+        --depth=2 \
+        --branch releases/v1.1 \
+        https://github.com/spack/spack.git
+
+    # Change ownership
+    sudo chown -R $USER:$USER "$BASE_DIR"
+
+    # Source Spack
+    source "$SPACK_DIR/share/spack/setup-env.sh"
+
+    echo -e "${GREEN}Spack installed and environment loaded successfully.${NC}"
+fi
+
+# ---------- Verify ----------
+if command -v spack &> /dev/null; then
+    echo -e "${GREEN}Spack is ready to use.${NC}"
+    spack --version
+else
+    echo -e "${RED}Failed to load Spack.${NC}"
+    return 1
+fi
 
 echo -e "${BLUE}Checking and installing HPC apps using Spack...${NC}" | tee "$LOGFILE"
 
